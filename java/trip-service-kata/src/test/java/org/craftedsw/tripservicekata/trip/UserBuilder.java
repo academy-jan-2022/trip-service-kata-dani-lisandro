@@ -12,6 +12,7 @@ class UserBuilder {
     private final User[] friends;
 
 
+
     public UserBuilder() {
         trips = new Trip[]{};
         friends = new User[]{};
