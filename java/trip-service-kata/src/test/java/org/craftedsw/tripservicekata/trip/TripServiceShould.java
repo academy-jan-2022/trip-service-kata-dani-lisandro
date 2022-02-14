@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -63,8 +64,8 @@ class TripServiceShould {
     private class TestableTripService extends TripService {
 
         @Override
-        protected User getLoggedUser() {
-            return loggedUser;
+        protected Optional<User> getLoggedUser() {
+            return Optional.ofNullable(loggedUser);
         }
 
         @Override
