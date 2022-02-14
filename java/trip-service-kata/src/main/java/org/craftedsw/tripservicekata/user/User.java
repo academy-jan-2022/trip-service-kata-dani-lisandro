@@ -26,4 +26,8 @@ public class User {
 		return trips;
 	}
 
+	public boolean isFriendsWith(User user) {
+		return friends.stream()
+				.anyMatch(userFriend -> userFriend.equals(user));
+	}
 }

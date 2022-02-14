@@ -1,13 +1,13 @@
-package org.craftedsw.tripservicekata.trip;
+package org.craftedsw.tripservicekata.user;
 
-import org.craftedsw.tripservicekata.user.User;
+import org.craftedsw.tripservicekata.trip.Trip;
 
 import java.util.stream.Stream;
 
 import static java.util.stream.Stream.*;
 
 
-class UserBuilder {
+public class UserBuilder {
     private final Trip[] trips;
     private final User[] friends;
 
