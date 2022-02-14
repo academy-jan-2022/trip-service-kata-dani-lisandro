@@ -13,15 +13,18 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class TripServiceShould {
     public static final Trip TO_PORTUGAL = new Trip();
     public User loggedUser = null;
     private TripService tripService;
-
+    private TripDAO mockedTripDao;
     @BeforeEach
     void setUp() {
-        tripService = new TestableTripService();
+        mockedTripDao = mock(TripDAO.class);
+        tripService = new TestableTripService(mockedTripDao);
 
     }
 
@@ -50,12 +53,14 @@ class TripServiceShould {
     @Test()
     void
     return_trips_when_users_are_friends() {
+
         loggedUser = new User();
         User friend = new UserBuilder()
                 .withFriends(loggedUser)
                 .withTrips(TO_PORTUGAL)
                 .build();
 
+        when(mockedTripDao.findTripsByUser(friend)).thenReturn(friend.trips());
         List<Trip> trips = tripService.getTripsByUser(friend);
 
         assertThat(trips.size(), is(1));
@@ -64,14 +69,14 @@ class TripServiceShould {
 
     private class TestableTripService extends TripService {
 
-        @Override
-        protected Optional<User> getLoggedUser() {
-            return Optional.ofNullable(loggedUser);
+
+        public TestableTripService(TripDAO tripDAO) {
+            super(tripDAO);
         }
 
         @Override
-        protected List<Trip> getTripsBy(User user) {
-            return user.trips();
+        protected Optional<User> getLoggedUser() {
+            return Optional.ofNullable(loggedUser);
         }
     }
 
