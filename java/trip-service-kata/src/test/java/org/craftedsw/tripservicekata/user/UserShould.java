@@ -12,7 +12,6 @@ public class UserShould {
         Assertions.assertFalse(user.isFriendsWith(new User()));
     }
 
-
     @Test
     void return_true_when_friend() {
         User friend = new User();
