@@ -54,7 +54,6 @@ class TripServiceShould {
                 .withTrips(TO_PORTUGAL)
                 .build();
 
-
         List<Trip> trips = tripService.getTripsByUser(friend);
 
         assertThat(trips.size(), is(1));
